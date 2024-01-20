@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import "./search-bar.css";
 
 type Inputs = {
@@ -8,7 +8,6 @@ type Inputs = {
 export default function SearchBar() {
   const {
     register,
-    handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
