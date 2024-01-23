@@ -1,7 +1,7 @@
-import type { Recepie } from "../widgets/cards-list";
+import type { Recipe } from "../widgets/cards-list";
 import "./card.css";
 import  ImageWithLoader from "./image-with-loader";
-export default function Card({ recipe }: { recipe: Recepie }) {
+export default function Card({ recipe }: { recipe: Recipe }) {
   return (
     <>
       <div key={recipe.id} className="card-recipe">
@@ -14,9 +14,9 @@ export default function Card({ recipe }: { recipe: Recepie }) {
             </li>
           ))}
         </ul>
-        <ol className="card-recipe__instrictions">
+        <ol className="card-recipe__instructions">
           {recipe.instructions.map((instruction) => (
-            <li className="card-recipe__instriction" key={instruction}>
+            <li className="card-recipe__instruction" key={instruction}>
               {instruction}
             </li>
           ))}

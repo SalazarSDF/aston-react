@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Spinner } from "./spiner";
+import { Spinner } from "./spinner";
 
 export default function ImageWithLoader({ src, alt }: { src: string; alt: string }) {
   const [imageLoaded, setImageLoaded] = useState(false);

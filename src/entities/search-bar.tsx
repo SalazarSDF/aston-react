@@ -2,7 +2,7 @@ import "./search-bar.css";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import useDebounce from "../shared/use-debounce";
-import SuggestionsList from "../widgets/sugestions-list";
+import SuggestionsList from "../widgets/suggestions-list";
 
 export default function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,7 +34,7 @@ export default function SearchBar() {
       <input
         className="search-bar"
         type="text"
-        placeholder="Tipe your favorite food"
+        placeholder="Type your favorite food"
         value={searchValue}
         onChange={handleSearchValue}
         onBlur={() => setShowSuggestions(false)}
@@ -49,6 +49,3 @@ export default function SearchBar() {
     </>
   );
 }
-
-//
-//

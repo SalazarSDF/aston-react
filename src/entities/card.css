@@ -15,10 +15,10 @@
   border-bottom: 1px solid white;
 }
 
-.card-recipe__instrictions {
+.card-recipe__instructions {
   list-style-position: inside;
 }
 
-.card-recipe__instriction {
+.card-recipe__instruction {
   border-bottom: 1px solid white;
 }

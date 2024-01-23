@@ -1,6 +1,6 @@
-import "./sugestions-list.css";
-import { useSearchRecipiesQuery } from "../app/apiSlice";
-import { Spinner } from "../entities/spiner";
+import "./suggestions-list.css";
+import { useSearchRecipesQuery} from "../app/apiSlice";
+import { Spinner } from "../entities/spinner";
 import ImageWithLoader from "../entities/image-with-loader";
 export default function SuggestionsList({
   searchValue,
@@ -14,7 +14,7 @@ export default function SuggestionsList({
     isSuccess,
     isError,
     error,
-  } = useSearchRecipiesQuery(searchValue);
+  } = useSearchRecipesQuery(searchValue);
   let content;
 
   if (isError) {
@@ -23,14 +23,14 @@ export default function SuggestionsList({
     content = <Spinner />;
   } else if (isSuccess && recipesObj.recipes.length === 0) {
     content = (
-      <div className="sugestion-item">
+      <div className="suggestions-item">
         <span>Nothing found =(</span>
       </div>
     );
   } else if (isSuccess) {
     content = recipesObj.recipes.map((recipe) => (
-      <div key={recipe.id} className="sugestion-item">
-        <div className="sugestion-item__img">
+      <div key={recipe.id} className="suggestion-item">
+        <div className="suggestion-item__img">
           <ImageWithLoader src={recipe.image} alt={recipe.name} />
         </div>
         <span>{recipe.name}</span>
@@ -38,5 +38,5 @@ export default function SuggestionsList({
     ));
   }
 
-  return <div className="sugestions-list">{content}</div>;
+  return <div className="suggestions-list">{content}</div>;
 }

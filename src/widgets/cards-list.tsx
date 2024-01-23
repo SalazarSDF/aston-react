@@ -1,9 +1,9 @@
 import "./cards-list.css";
-import { useGetInitalRecipiesQuery } from "../app/apiSlice";
-import { Spinner } from "../entities/spiner";
+import { useGetInitialRecipesQuery } from "../app/apiSlice";
+import { Spinner } from "../entities/spinner";
 import Card from "../entities/card";
 
-export type Recepie = {
+export type Recipe = {
   id: number;
   name: string;
   instructions: string[];
@@ -22,7 +22,7 @@ export default function CardsList() {
     isSuccess,
     isError,
     error,
-  } = useGetInitalRecipiesQuery();
+  } = useGetInitialRecipesQuery();
 
   let content;
   if (isLoading || isFetching) {
