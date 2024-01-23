@@ -1,0 +1,25 @@
+.sugestions-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 7rem;
+  z-index: 10;
+  max-width: 14rem;
+  max-height: 30rem;
+  overflow: overlay;
+}
+.sugestion-item {
+  background-color: #0c1013f3;
+  padding: 1rem 1rem;
+  display: flex;
+  cursor: pointer;
+  column-gap: 1rem;
+  align-items: center;
+}
+.sugestion-item:hover {
+  background-color: #1f2d37;
+}
+.sugestion-item__img {
+  max-width: 30%;
+}

@@ -1,18 +1,33 @@
-import { useForm } from "react-hook-form";
 import "./search-bar.css";
-
-type Inputs = {
-  searchInput: string;
-};
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import useDebounce from "../shared/use-debounce";
+import SuggestionsList from "../widgets/sugestions-list";
 
 export default function SearchBar() {
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
-  //const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-  const searchValue = watch("searchInput");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchValue, setSearchValue] = useState(() => {
+    const currentSearchParams = searchParams.get("query");
+    return currentSearchParams ? currentSearchParams : "";
+  });
+  const debouncedSearchValue = useDebounce(searchValue, 500);
+  const [showSuggestions, setShowSuggestions] = useState(() => {
+    if (debouncedSearchValue && debouncedSearchValue.length > 2) {
+      return true;
+    }
+    return false;
+  });
+
+  function handleSearchValue(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearchValue(event.target.value);
+    if (event.target.value) {
+      searchParams.set("query", event.target.value);
+      setSearchParams(searchParams);
+      setShowSuggestions(true);
+      return;
+    }
+    setShowSuggestions(false);
+  }
 
   return (
     <>
@@ -20,13 +35,20 @@ export default function SearchBar() {
         className="search-bar"
         type="text"
         placeholder="Tipe your favorite food"
-        {...register("searchInput", {
-          required: true,
-          minLength: { value: 3, message: "Min length is 3" },
-        })}
+        value={searchValue}
+        onChange={handleSearchValue}
+        onBlur={() => setShowSuggestions(false)}
+        onFocus={() => setShowSuggestions(true)}
       />
-      <p>{errors.searchInput?.message}</p>
-      <p>Search: {searchValue}</p>
+      {debouncedSearchValue.length > 0 && debouncedSearchValue.length < 3 && (
+        <span className="search-bar__helper">minimum 3 letter</span>
+      )}
+      {showSuggestions && debouncedSearchValue.length > 2 && (
+        <SuggestionsList searchValue={debouncedSearchValue} />
+      )}
     </>
   );
 }
+
+//
+//

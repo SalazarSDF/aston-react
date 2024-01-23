@@ -1,269 +1,44 @@
 import "./cards-list.css";
-const recepies = [
-  {
-    id: 5,
-    name: "Mango Salsa Chicken",
-    instructions: [
-      "Season chicken thighs with salt and pepper.",
-      "Grill or bake chicken until fully cooked.",
-      "In a bowl, combine diced mango, chopped red onion, cilantro, minced jalapeño, and lime juice.",
-      "Dice the cooked chicken and mix it with the mango salsa.",
-      "Serve over cooked rice.",
-    ],
-    prepTimeMinutes: 15,
-    cookTimeMinutes: 25,
-    difficulty: "Easy",
-    cuisine: "Mexican",
-    tags: ["Chicken", "Salsa"],
-    image: "https://cdn.dummyjson.com/recipe-images/5.webp",
-  },
-  {
-    id: 6,
-    name: "Quinoa Salad with Avocado",
-    ingredients: [
-      "Quinoa, cooked",
-      "Avocado, diced",
-      "Cherry tomatoes, halved",
-      "Cucumber, diced",
-      "Red bell pepper, diced",
-      "Feta cheese, crumbled",
-      "Lemon vinaigrette dressing",
-      "Salt and pepper to taste",
-    ],
-    instructions: [
-      "In a large bowl, combine cooked quinoa, diced avocado, halved cherry tomatoes, diced cucumber, diced red bell pepper, and crumbled feta cheese.",
-      "Drizzle with lemon vinaigrette dressing and toss to combine.",
-      "Season with salt and pepper to taste.",
-      "Chill in the refrigerator before serving.",
-    ],
-    prepTimeMinutes: 20,
-    cookTimeMinutes: 15,
-    servings: 4,
-    difficulty: "Easy",
-    cuisine: "Mediterranean",
-    caloriesPerServing: 280,
-    tags: ["Salad", "Quinoa"],
-    userId: 5,
-    image: "https://cdn.dummyjson.com/recipe-images/6.webp",
-    rating: 4.4,
-    reviewCount: 21,
-    mealType: ["Lunch", "Side Dish"],
-  },
-  {
-    id: 9,
-    name: "Caprese Salad",
-    ingredients: [
-      "Tomatoes, sliced",
-      "Fresh mozzarella cheese, sliced",
-      "Fresh basil leaves",
-      "Balsamic glaze",
-      "Extra virgin olive oil",
-      "Salt and pepper to taste",
-    ],
-    instructions: [
-      "Arrange alternating slices of tomatoes and fresh mozzarella on a serving platter.",
-      "Tuck fresh basil leaves between the slices.",
-      "Drizzle with balsamic glaze and extra virgin olive oil.",
-      "Season with salt and pepper to taste.",
-      "Serve immediately as a refreshing salad.",
-    ],
-    prepTimeMinutes: 10,
-    cookTimeMinutes: 0,
-    servings: 2,
-    difficulty: "Easy",
-    cuisine: "Italian",
-    caloriesPerServing: 200,
-    tags: ["Salad", "Caprese"],
-    userId: 75,
-    image: "https://cdn.dummyjson.com/recipe-images/9.webp",
-    rating: 4.6,
-    reviewCount: 26,
-    mealType: ["Lunch"],
-  },
-  {
-    id: 28,
-    name: "South Indian Masala Dosa",
-    ingredients: [
-      "Dosa batter (fermented rice and urad dal batter)",
-      "Potatoes, boiled and mashed",
-      "Onions, finely chopped",
-      "Mustard seeds",
-      "Cumin seeds",
-      "Curry leaves",
-      "Turmeric powder",
-      "Green chilies, chopped",
-      "Ghee",
-      "Coconut chutney for serving",
-    ],
-    instructions: [
-      "In a pan, heat ghee and add mustard seeds, cumin seeds, and curry leaves.",
-      "Add chopped onions, green chilies, and turmeric powder. Sauté until onions are golden brown.",
-      "Mix in boiled and mashed potatoes. Cook until well combined and seasoned.",
-      "Spread dosa batter on a hot griddle to make thin pancakes.",
-      "Place a spoonful of the potato mixture in the center, fold, and serve hot.",
-      "Pair with coconut chutney for a delicious South Indian meal.",
-    ],
-    prepTimeMinutes: 40,
-    cookTimeMinutes: 20,
-    servings: 4,
-    difficulty: "Medium",
-    cuisine: "Indian",
-    caloriesPerServing: 320,
-    tags: ["Dosa", "Indian", "Asian"],
-    userId: 67,
-    image: "https://cdn.dummyjson.com/recipe-images/28.webp",
-    rating: 4.4,
-    reviewCount: 6,
-    mealType: ["Breakfast"],
-  },
-  {
-    id: 33,
-    name: "Mediterranean Quinoa Salad",
-    ingredients: [
-      "Quinoa, cooked",
-      "Cherry tomatoes, halved",
-      "Cucumber, diced",
-      "Kalamata olives, sliced",
-      "Red onion, finely chopped",
-      "Feta cheese, crumbled",
-      "Fresh parsley, chopped",
-      "Lemon vinaigrette dressing",
-    ],
-    instructions: [
-      "In a large bowl, combine cooked quinoa, cherry tomatoes, cucumber, olives, red onion, feta cheese, and parsley.",
-      "Drizzle with lemon vinaigrette dressing and toss to combine.",
-      "Chill before serving. This Mediterranean Quinoa Salad is perfect as a refreshing side dish.",
-    ],
-    prepTimeMinutes: 20,
-    cookTimeMinutes: 15,
-    servings: 6,
-    difficulty: "Easy",
-    cuisine: "Mediterranean",
-    caloriesPerServing: 220,
-    tags: ["Quinoa salad", "Mediterranean"],
-    userId: 62,
-    image: "https://cdn.dummyjson.com/recipe-images/33.webp",
-    rating: 4.8,
-    reviewCount: 23,
-    mealType: ["Lunch", "Side Dish"],
-  },
-  {
-    id: 39,
-    name: "Moroccan Couscous Salad",
-    ingredients: [
-      "Couscous, cooked",
-      "Chickpeas, cooked",
-      "Cherry tomatoes, halved",
-      "Cucumber, diced",
-      "Red onion, finely chopped",
-      "Fresh mint leaves, chopped",
-      "Feta cheese, crumbled",
-      "Lemon vinaigrette dressing",
-    ],
-    instructions: [
-      "In a large bowl, combine cooked couscous, chickpeas, cherry tomatoes, cucumber, red onion, mint leaves, and crumbled feta.",
-      "Drizzle with lemon vinaigrette dressing and toss to combine.",
-      "Chill before serving. This Moroccan Couscous Salad makes a refreshing side dish.",
-    ],
-    prepTimeMinutes: 15,
-    cookTimeMinutes: 10,
-    servings: 6,
-    difficulty: "Easy",
-    cuisine: "Moroccan",
-    caloriesPerServing: 260,
-    tags: ["Couscous salad", "Moroccan"],
-    userId: 16,
-    image: "https://cdn.dummyjson.com/recipe-images/39.webp",
-    rating: 4.1,
-    reviewCount: 35,
-    mealType: ["Lunch", "Side Dish"],
-  },
-  {
-    id: 43,
-    name: "Mango Avocado Salsa",
-    ingredients: [
-      "Mango, diced",
-      "Avocado, diced",
-      "Red onion, finely chopped",
-      "Cilantro, chopped",
-      "Lime juice",
-      "Salt and pepper to taste",
-      "Tortilla chips for serving",
-    ],
-    instructions: [
-      "In a bowl, combine diced mango, diced avocado, finely chopped red onion, and chopped cilantro.",
-      "Drizzle with fresh lime juice and season with salt and pepper. Toss gently to combine.",
-      "Serve this refreshing Mango Avocado Salsa with tortilla chips for a quick and tasty snack.",
-    ],
-    prepTimeMinutes: 10,
-    cookTimeMinutes: 0,
-    servings: 4,
-    difficulty: "Easy",
-    cuisine: "Mexican",
-    caloriesPerServing: 90,
-    tags: ["Mango salsa", "Mexican"],
-    userId: 21,
-    image: "https://cdn.dummyjson.com/recipe-images/43.webp",
-    rating: 4.1,
-    reviewCount: 44,
-    mealType: ["Snack", "Appetizer"],
-  },
-  {
-    id: 49,
-    name: "Mediterranean Chickpea Salad",
-    ingredients: [
-      "Canned chickpeas, drained and rinsed",
-      "Cherry tomatoes, halved",
-      "Cucumber, diced",
-      "Red onion, finely chopped",
-      "Kalamata olives, sliced",
-      "Feta cheese, crumbled",
-      "Olive oil",
-      "Lemon juice",
-      "Dried oregano",
-      "Salt and pepper to taste",
-    ],
-    instructions: [
-      "In a large bowl, combine chickpeas, cherry tomatoes, cucumber, red onion, olives, and feta cheese.",
-      "In a small bowl, whisk together olive oil, lemon juice, dried oregano, salt, and pepper to make the dressing.",
-      "Pour the dressing over the salad and toss gently to combine.",
-      "Chill before serving. Enjoy this quick and refreshing Mediterranean Chickpea Salad.",
-    ],
-    prepTimeMinutes: 15,
-    cookTimeMinutes: 0,
-    servings: 4,
-    difficulty: "Easy",
-    cuisine: "Mediterranean",
-    caloriesPerServing: 220,
-    tags: ["Chickpea salad", "Mediterranean", "Quick"],
-    userId: 57,
-    image: "https://cdn.dummyjson.com/recipe-images/49.webp",
-    rating: 4.7,
-    reviewCount: 35,
-    mealType: ["Lunch", "Side Dish"],
-  },
-];
+import { useGetInitalRecipiesQuery } from "../app/apiSlice";
+import { Spinner } from "../entities/spiner";
+import Card from "../entities/card";
+
+export type Recepie = {
+  id: number;
+  name: string;
+  instructions: string[];
+  prepTimeMinutes: number;
+  cookTimeMinutes: number;
+  difficulty: string;
+  cuisine: string;
+  tags: string[];
+  image: string;
+};
 export default function CardsList() {
-  return (
-    <div className="cards-list">
-      {recepies.map((recipe) => (
-        <div key={recipe.id} className="card-recipe">
-          <img src={recipe.image} alt={recipe.name} />
-          <h2>{recipe.name}</h2>
-          <ul>
-            {recipe.tags.map((tag) => (
-              <li key={tag}>{tag}</li>
-            ))}
-          </ul>
-          <ol className="card-recipe__instrictions">
-            {recipe.instructions.map((instruction) => (
-              <li key={instruction}>{instruction}</li>
-            ))}
-          </ol>
-          <p>Difficulty: {recipe.difficulty}</p>
-          <p>Cuisine: {recipe.cuisine}</p>
-        </div>
-      ))}
-    </div>
-  );
+  const {
+    data: recipesObj,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    error,
+  } = useGetInitalRecipiesQuery();
+
+  let content;
+  if (isLoading || isFetching) {
+    content = <Spinner />;
+  } else if (isSuccess) {
+    const recipes = recipesObj.recipes;
+    content = (
+      <>
+        {recipes.map((recipe) => (
+          <Card key={recipe.id} recipe={recipe} />
+        ))}
+      </>
+    );
+  } else if (isError) {
+    content = <div>{error.toString()}</div>;
+  }
+
+  return <div className="cards-list">{content}</div>;
 }
