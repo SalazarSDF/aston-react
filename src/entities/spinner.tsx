@@ -1,5 +1,9 @@
 import "./spinner.css";
-export const Spinner = ({ text = "", size = "5em" }) => {
+type Props = {
+  text?: string;
+  size?: string;
+};
+const Spinner = ({ text = "", size = "5em" }: Props) => {
   const header = text ? <h4>{text}</h4> : null;
   return (
     <div className="spinner">
@@ -8,3 +12,5 @@ export const Spinner = ({ text = "", size = "5em" }) => {
     </div>
   );
 };
+
+export default Spinner;

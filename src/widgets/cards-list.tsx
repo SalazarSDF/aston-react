@@ -1,6 +1,6 @@
 import "./cards-list.css";
 import { useGetInitialRecipesQuery } from "../app/apiSlice";
-import { Spinner } from "../entities/spinner";
+import Spinner from "../entities/spinner";
 import Card from "../entities/card";
 
 export type Recipe = {
@@ -21,7 +21,6 @@ export default function CardsList() {
     isFetching,
     isSuccess,
     isError,
-    error,
   } = useGetInitialRecipesQuery();
 
   let content;
@@ -37,7 +36,7 @@ export default function CardsList() {
       </>
     );
   } else if (isError) {
-    content = <div>{error.toString()}</div>;
+    content = <div>Error! =( </div>;
   }
 
   return <div className="cards-list">{content}</div>;

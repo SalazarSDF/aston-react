@@ -7,9 +7,19 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
+    "plugin:import/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: true,
+    tsconfigRootDir: __dirname,
+  },
   plugins: ["react-refresh"],
   rules: {
     "react-refresh/only-export-components": [
@@ -18,9 +28,10 @@ module.exports = {
     ],
     "no-console": ["error"],
     curly: ["error", "all"],
-    "import/extensions": "off",
-    "import/prefer-default-export": "warn",
     "no-unused-expressions": "error",
+    "import/extensions": "off",
+    "react/jsx-no-useless-fragment": "error",
+    "import/prefer-default-export": "warn",
     "import/order": [
       "error",
       {

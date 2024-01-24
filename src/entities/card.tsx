@@ -1,9 +1,10 @@
+import  ImageWithLoader from "./image-with-loader";
+
 import type { Recipe } from "../widgets/cards-list";
 import "./card.css";
-import  ImageWithLoader from "./image-with-loader";
+
 export default function Card({ recipe }: { recipe: Recipe }) {
   return (
-    <>
       <div key={recipe.id} className="card-recipe">
         <ImageWithLoader src={recipe.image} alt={recipe.name} />
         <h2>{recipe.name}</h2>
@@ -24,6 +25,6 @@ export default function Card({ recipe }: { recipe: Recipe }) {
         <p>Difficulty: {recipe.difficulty}</p>
         <p>Cuisine: {recipe.cuisine}</p>
       </div>
-    </>
   );
 }
+

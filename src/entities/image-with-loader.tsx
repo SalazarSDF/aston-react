@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
-import { Spinner } from "./spinner";
 
-export default function ImageWithLoader({ src, alt }: { src: string; alt: string }) {
+import Spinner from "./spinner";
+
+export default function ImageWithLoader({
+  src,
+  alt,
+}: {
+  src: string;
+  alt: string;
+}) {
   const [imageLoaded, setImageLoaded] = useState(false);
   useEffect(() => {
     const img = new Image();
@@ -10,6 +17,8 @@ export default function ImageWithLoader({ src, alt }: { src: string; alt: string
     };
     img.src = src;
   });
-  return <>{!imageLoaded ? <Spinner /> : <img src={src} alt={alt} />}</>;
+  if (!imageLoaded) {
+    return <Spinner />;
+  }
+  return <img src={src} alt={alt} />;
 }
-

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Header from "../entities/header";
 import Main from "../pages/main-page";
 import Favorites from "../pages/favorites-page";

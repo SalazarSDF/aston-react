@@ -1,6 +1,6 @@
 import "./suggestions-list.css";
-import { useSearchRecipesQuery} from "../app/apiSlice";
-import { Spinner } from "../entities/spinner";
+import { useSearchRecipesQuery } from "../app/apiSlice";
+import Spinner from "../entities/spinner";
 import ImageWithLoader from "../entities/image-with-loader";
 export default function SuggestionsList({
   searchValue,
@@ -13,12 +13,11 @@ export default function SuggestionsList({
     isFetching,
     isSuccess,
     isError,
-    error,
   } = useSearchRecipesQuery(searchValue);
   let content;
 
   if (isError) {
-    content = <p>{error.toString()}</p>;
+    content = <p>Error =(</p>;
   } else if (isLoading && isFetching) {
     content = <Spinner />;
   } else if (isSuccess && recipesObj.recipes.length === 0) {

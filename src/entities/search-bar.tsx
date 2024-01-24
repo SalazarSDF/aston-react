@@ -1,6 +1,7 @@
 import "./search-bar.css";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+
 import useDebounce from "../shared/use-debounce";
 import SuggestionsList from "../widgets/suggestions-list";
 

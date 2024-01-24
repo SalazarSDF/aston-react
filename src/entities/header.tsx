@@ -7,7 +7,7 @@ export default function Header() {
         <Link to="/">Logo</Link>
         <nav className="header__navigation">
           <Link to="/">Sign In</Link>
-          <Link to="/">Sigin Out</Link>
+          <Link to="/">Sign Out</Link>
         </nav>
       </div>
       <Outlet />
