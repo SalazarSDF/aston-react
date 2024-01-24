@@ -1,0 +1,24 @@
+.card-recipe {
+  max-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+  border: 1px solid white;
+}
+
+.card-recipe__tags {
+  list-style-position: inside;
+}
+
+.card-recipe__tag {
+  border-bottom: 1px solid white;
+}
+
+.card-recipe__instructions {
+  list-style-position: inside;
+}
+
+.card-recipe__instruction {
+  border-bottom: 1px solid white;
+}
