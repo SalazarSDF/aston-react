@@ -15,7 +15,7 @@ export default function ImageWithLoader({ src, alt }: Props) {
       setImageLoaded(true);
     };
     img.src = src;
-  });
+  }, [src]);
   if (!imageLoaded) {
     return <Spinner />;
   }
