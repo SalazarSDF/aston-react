@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 
 import Spinner from "./spinner";
 
-export default function ImageWithLoader({
-  src,
-  alt,
-}: {
+type Props = {
   src: string;
   alt: string;
-}) {
+};
+
+export default function ImageWithLoader({ src, alt }: Props) {
   const [imageLoaded, setImageLoaded] = useState(false);
   useEffect(() => {
     const img = new Image();
