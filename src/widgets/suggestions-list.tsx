@@ -2,11 +2,13 @@ import "./suggestions-list.css";
 import { useSearchRecipesQuery } from "../app/apiSlice";
 import Spinner from "../entities/spinner";
 import ImageWithLoader from "../entities/image-with-loader";
-export default function SuggestionsList({
-  searchValue,
-}: {
+
+type Props = {
   searchValue: string;
-}) {
+  isBlurOrFocus: string | null;
+};
+
+export default function SuggestionsList({ searchValue, isBlurOrFocus }: Props) {
   const {
     data: recipesObj,
     isLoading,
@@ -14,6 +16,13 @@ export default function SuggestionsList({
     isSuccess,
     isError,
   } = useSearchRecipesQuery(searchValue);
+
+  const showSuggestions =
+    searchValue && searchValue.length > 2 && isBlurOrFocus === "focus";
+  if (!showSuggestions) {
+    return;
+  }
+
   let content;
 
   if (isError) {
