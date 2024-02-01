@@ -33,8 +33,10 @@ export const createNewUserWithEmailAndPassword = createAsyncThunk(
       }
       const userFromBd = await getUserFromBd(data.email);
       return userFromBd;
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       // я не нашел все типы ошибок from firebase, оставлю пока что так.
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return rejectWithValue(error.code);
     }
   },
@@ -70,8 +72,10 @@ export const changeUserWithEmail = createAsyncThunk(
       await signInAuthUserWithEmailAndPassword(data.email, data.password);
       const userFromBd = await getUserFromBd(data.email);
       return userFromBd;
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       // я не нашел все типы ошибок from firebase, оставлю пока что так.
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return rejectWithValue(error.code);
     }
   },
@@ -82,7 +86,7 @@ export const removeUser = createAsyncThunk("user/removeUser", async () => {
     await signOutUser();
     return null;
   } catch (error) {
-    throw new Error(error);
+    throw new Error("cant remove user");
   }
 });
 
@@ -124,7 +128,7 @@ const userSlice = createSlice({
       })
       .addCase(createNewUserWithEmailAndPassword.rejected, (state, action) => {
         // я не нашел все типы ошибок from firebase, оставлю пока что так.
-        state.error = action.payload;
+        state.error = action.payload as string;
       })
       .addCase(createNewUserWithGoogle.fulfilled, (state, action) => {
         if (action.payload) {
@@ -139,7 +143,7 @@ const userSlice = createSlice({
       .addCase(changeUserWithEmail.rejected, (state, action) => {
         if (action.payload) {
           // я не нашел все типы ошибок from firebase, оставлю пока что так.
-          state.error = action.payload;
+          state.error = action.payload as string;
         }
       })
       .addCase(removeUser.fulfilled, (state) => {
@@ -153,7 +157,7 @@ export default userSlice;
 export const { setUserData, setUserError } = userSlice.actions;
 
 export const getUserData = ({ user }: RootState) => {
-  //TODO: remove it's for testing 
+  //TODO: remove it's for testing
   //console.log(user.userData);
   return user.userData;
 };
