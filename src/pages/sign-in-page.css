@@ -1,0 +1,13 @@
+.sign-in-form__container {
+  display: flex;
+  flex-direction: column;
+  max-width: 24rem;
+  margin: auto;
+  row-gap: 1rem;
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

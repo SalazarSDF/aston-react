@@ -5,7 +5,6 @@ import type { Recipe } from "../widgets/cards-list";
 type RecipesData = {
   recipes: Recipe[];
 };
-const limit = 9;
 
 export const apiSlice = createApi({
   // The cache reducer expects to be added at `state.api` (already default - this is optional)
@@ -15,7 +14,7 @@ export const apiSlice = createApi({
   // The "endpoints" represent operations and requests for this server
   endpoints: (builder) => ({
     getInitialRecipes: builder.query<RecipesData, void>({
-      query: () => `/recipes?limit=${limit}`,
+      query: () => `/recipes`,
     }),
     searchRecipes: builder.query<RecipesData, string>({
       query: (query: string) => `recipes/search?q=${query}`,

@@ -5,6 +5,9 @@ import Header from "../entities/header";
 import Main from "../pages/main-page";
 import Favorites from "../pages/favorites-page";
 import "./index.css";
+import SignIn from "../pages/sign-in-page";
+import SignUpForm from "../pages/sign-up-page";
+
 
 function App() {
   return (
@@ -12,6 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<Main />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/favorites" element={<Favorites />} />
         </Route>
       </Routes>
