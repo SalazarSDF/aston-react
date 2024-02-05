@@ -1,9 +1,16 @@
-.search-bar{
-  display: block;
-  margin: 0 auto;
+.search-bar__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.search-bar__helper{
-  display: block;
+.search-bar {
+  margin-right: 1rem;
+}
+.search-bar__helper {
   margin: 0 auto;
   text-align: center;
+}
+
+.search-bar__button {
+  cursor: pointer;
 }

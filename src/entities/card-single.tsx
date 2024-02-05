@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
@@ -8,6 +8,7 @@ import { useGetRecipeQuery } from "../app/apiSlice";
 import {
   getUserFavorites,
   favoritePostHandler,
+  getUserData,
 } from "../features/users/userSlice";
 
 import { useAppDispatch } from "../app/store";
@@ -31,6 +32,9 @@ export default function SingleCard() {
   } = useGetRecipeQuery(recipeId);
 
   const userFavorites = useSelector(getUserFavorites);
+  const user = useSelector(getUserData);
+
+  const navigate = useNavigate();
   const [cardFavorite, setCardFavorite] = useState(() => {
     return userFavorites && userFavorites.includes(Number(recipeId));
   });
@@ -40,6 +44,9 @@ export default function SingleCard() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     e.stopPropagation();
+    if (!user || !user.email) {
+      navigate("/sign-up");
+    }
     setCardFavorite(!cardFavorite);
     dispatch(favoritePostHandler({ favoriteId: Number(recipeId) }));
   }

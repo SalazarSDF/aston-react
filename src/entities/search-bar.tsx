@@ -5,6 +5,9 @@ import { useSearchParams } from "react-router-dom";
 import useDebounce from "../shared/use-debounce";
 import SuggestionsList from "../widgets/suggestions-list";
 
+import { historyPostHandler } from "../features/users/userSlice";
+import { useAppDispatch } from "../app/store";
+
 export default function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchValue, setSearchValue] = useState(() => {
@@ -12,6 +15,7 @@ export default function SearchBar() {
     return currentSearchParams;
   });
   const debouncedSearchValue = useDebounce(searchValue, 500);
+  const dispatch = useAppDispatch();
 
   const [isBlurOrFocus, setIsBlurOrFocus] = useState<string | null>(null);
 
@@ -24,22 +28,36 @@ export default function SearchBar() {
     }
   }
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    dispatch(
+      historyPostHandler({ historyItem: searchValue, typeOfAction: "add" }),
+    );
+  }
+
   function handleOnBlurAndOnFocus(event: React.FocusEvent<HTMLInputElement>) {
     setIsBlurOrFocus(event.type);
   }
 
   return (
     <>
-      <input
-        name="search-recipe"
-        className="search-bar"
-        type="text"
-        placeholder="Type your favorite food"
-        value={searchValue}
-        onChange={handleSearchValue}
-        onBlur={handleOnBlurAndOnFocus}
-        onFocus={handleOnBlurAndOnFocus}
-      />
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div className="search-bar__container">
+          <input
+            name="search-recipe"
+            className="search-bar"
+            type="text"
+            placeholder="Type your favorite food"
+            value={searchValue}
+            onChange={handleSearchValue}
+            onBlur={handleOnBlurAndOnFocus}
+            onFocus={handleOnBlurAndOnFocus}
+          />
+          <button className="search-bar__button" type="submit">
+            Search
+          </button>
+        </div>
+      </form>
       {debouncedSearchValue.length > 0 && debouncedSearchValue.length < 3 && (
         <span className="search-bar__helper">minimum 3 letter</span>
       )}

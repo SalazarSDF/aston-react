@@ -103,8 +103,6 @@ export default function SignUpForm() {
         )}
         <input type="submit" />
       </form>
-      {/* TODO: Remove it's for test */}
-      {/* <button onClick={() => console.log(user, signUpError)}>UserData</button> */}
       {signUpError && <Modal />}
     </div>
   );

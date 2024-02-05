@@ -9,6 +9,8 @@ import {
   signOutUser,
   addUserNewFavoriteToBd,
   removeUserFavoriteFromBd,
+  addUserHistoryToBd,
+  removeUserHistoryFromBd,
 } from "../../app/firebase";
 
 import type { FormFieldsType } from "../../pages/sign-up-page";
@@ -136,6 +138,22 @@ const userSlice = createSlice({
         }
       }
     },
+    historyPostHandler(
+      state,
+      action: PayloadAction<{ historyItem: string; typeOfAction: string }>,
+    ) {
+      const { historyItem, typeOfAction } = action.payload;
+      const history = state.userData?.history;
+      if (history && state.userData) {
+        if (typeOfAction === "remove") {
+          state.userData.history = history.filter((el) => el !== historyItem);
+          void removeUserHistoryFromBd(state.userData.email, historyItem);
+        } else if (typeOfAction === "add") {
+          history.push(historyItem);
+          void addUserHistoryToBd(state.userData.email, historyItem);
+        }
+      }
+    },
   },
 
   extraReducers: (builder) => {
@@ -173,18 +191,27 @@ const userSlice = createSlice({
 
 export default userSlice;
 
-export const { setUserData, setUserError, favoritePostHandler } =
-  userSlice.actions;
+export const {
+  setUserData,
+  setUserError,
+  favoritePostHandler,
+  historyPostHandler,
+} = userSlice.actions;
 
 export const getUserData = ({ user }: RootState) => {
-  //TODO: remove it's for testing
-  //console.log(user.userData);
   return user.userData;
 };
 
 export const getUserFavorites = ({ user }: RootState) => {
   if (user?.userData?.favorites) {
     return user.userData.favorites;
+  }
+  return null;
+};
+
+export const getUserHistory = ({ user }: RootState) => {
+  if (user?.userData?.history) {
+    return user.userData.history;
   }
   return null;
 };

@@ -21,10 +21,6 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 
-//TODO: use from firebase/firestore"
-//
-//query,
-//getDocs,
 import type { UserData } from "../features/users/userSlice";
 
 // Your web app's Firebase configuration
@@ -115,22 +111,27 @@ export const removeUserFavoriteFromBd = async (
   });
 };
 
-
 export const addUserHistoryToBd = async (
-  uid: string,
-  newHistory: UserData["history"],
+  email: string,
+  newHistoryItem: string,
 ) => {
-  const userDocRef = doc(db, "users", uid);
-  try {
-    await updateDoc(userDocRef, {
-      history: newHistory,
-    });
-  } catch {
-    throw new Error("Error can't add history");
-  }
+  const userDocRef = doc(db, "users", email);
+  await updateDoc(userDocRef, {
+    history: arrayUnion(newHistoryItem),
+  });
 };
 
-//additionalInformation = {} as AdditionalInformation,
+export const removeUserHistoryFromBd = async (
+  email: string,
+  historyItemToRemove: string,
+) => {
+  const userDocRef = doc(db, "users", email);
+
+  await updateDoc(userDocRef, {
+    history: arrayRemove(historyItemToRemove),
+  });
+};
+
 export const signInAuthUserWithEmailAndPassword = async (
   email: string,
   password: string,

@@ -1,0 +1,17 @@
+.history {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.history__link {
+  background: white;
+  padding: 1rem 5rem;
+  border-radius: 1rem;
+}
+
+.history__link:hover {
+  border: 1px solid orange;
+}
