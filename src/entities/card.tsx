@@ -18,9 +18,6 @@ type PropsType = {
   recipe: Recipe;
 };
 
-// isFavorites={Boolean(
-//   userFavorites && userFavorites.includes(recipe.id),
-// )}
 export default function Card({ recipe }: PropsType) {
   const userFavorites = useSelector(getUserFavorites);
   const user = useSelector(getUserData);

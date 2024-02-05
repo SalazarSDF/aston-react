@@ -38,6 +38,3 @@
   scale: 1.05;
 }
 
-.card-recipe__button:hover .card-recipe {
-  background: unset !important;
-}
