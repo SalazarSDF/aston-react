@@ -17,12 +17,12 @@ import {
   getDoc,
   setDoc,
   updateDoc,
+  arrayRemove,
+  arrayUnion,
 } from "firebase/firestore";
 
 //TODO: use from firebase/firestore"
 //
-//arrayRemove,
-//arrayUnion,
 //query,
 //getDocs,
 import type { UserData } from "../features/users/userSlice";
@@ -63,8 +63,8 @@ export const addUserToBd = async (email: string) => {
       await setDoc(userDocRef, {
         email,
         createdAt,
-        favorites: ["fav test1", "favtest2"],
-        history: ["test1", "test1"],
+        favorites: [],
+        history: [],
       });
     } catch {
       throw new Error("Error can't add user");
@@ -93,21 +93,28 @@ export const getUserFromBd = async (email: string) => {
   return null;
 };
 
-/// TODO: MAKE one funct =>
-export const addUserFavoritesToBd = async (
-  uid: string,
-  newFavorites: UserData["favorites"],
+export const addUserNewFavoriteToBd = async (
+  email: string,
+  newFavorite: number,
 ) => {
-  const userDocRef = doc(db, "users", uid);
+  const userDocRef = doc(db, "users", email);
 
-  try {
-    await updateDoc(userDocRef, {
-      favorites: newFavorites,
-    });
-  } catch {
-    throw new Error("Error can't add favorites");
-  }
+  await updateDoc(userDocRef, {
+    favorites: arrayUnion(newFavorite),
+  });
 };
+
+export const removeUserFavoriteFromBd = async (
+  email: string,
+  favoriteToRemove: number,
+) => {
+  const userDocRef = doc(db, "users", email);
+
+  await updateDoc(userDocRef, {
+    favorites: arrayRemove(favoriteToRemove),
+  });
+};
+
 
 export const addUserHistoryToBd = async (
   uid: string,
@@ -122,7 +129,6 @@ export const addUserHistoryToBd = async (
     throw new Error("Error can't add history");
   }
 };
-///  <= TODO: MAKE one func ^
 
 //additionalInformation = {} as AdditionalInformation,
 export const signInAuthUserWithEmailAndPassword = async (

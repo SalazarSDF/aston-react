@@ -1,7 +1,8 @@
 import "./cards-list.css";
+
+import Card from "../entities/card";
 import { useGetInitialRecipesQuery } from "../app/apiSlice";
 import Spinner from "../entities/spinner";
-import Card from "../entities/card";
 
 export type Recipe = {
   id: number;
@@ -31,7 +32,10 @@ export default function CardsList() {
     content = (
       <>
         {recipes.map((recipe) => (
-          <Card key={recipe.id} recipe={recipe} />
+          <Card
+            key={recipe.id}
+            recipe={recipe}
+          />
         ))}
       </>
     );

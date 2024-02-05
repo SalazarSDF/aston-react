@@ -7,6 +7,8 @@ import {
   getUserFromBd,
   addUserToBd,
   signOutUser,
+  addUserNewFavoriteToBd,
+  removeUserFavoriteFromBd,
 } from "../../app/firebase";
 
 import type { FormFieldsType } from "../../pages/sign-up-page";
@@ -117,6 +119,23 @@ const userSlice = createSlice({
     ) {
       state.error = action.payload.newError;
     },
+
+    favoritePostHandler(state, action: PayloadAction<{ favoriteId: number }>) {
+      const { favoriteId } = action.payload;
+      const favorites = state.userData?.favorites;
+      if (favorites && state.userData) {
+        const isRecipeInFavorites = favorites.includes(favoriteId);
+        if (isRecipeInFavorites) {
+          state.userData.favorites = favorites.filter(
+            (el) => el !== favoriteId,
+          );
+          void removeUserFavoriteFromBd(state.userData.email, favoriteId);
+        } else if (!isRecipeInFavorites) {
+          favorites.push(favoriteId);
+          void addUserNewFavoriteToBd(state.userData.email, favoriteId);
+        }
+      }
+    },
   },
 
   extraReducers: (builder) => {
@@ -154,12 +173,20 @@ const userSlice = createSlice({
 
 export default userSlice;
 
-export const { setUserData, setUserError } = userSlice.actions;
+export const { setUserData, setUserError, favoritePostHandler } =
+  userSlice.actions;
 
 export const getUserData = ({ user }: RootState) => {
   //TODO: remove it's for testing
   //console.log(user.userData);
   return user.userData;
+};
+
+export const getUserFavorites = ({ user }: RootState) => {
+  if (user?.userData?.favorites) {
+    return user.userData.favorites;
+  }
+  return null;
 };
 
 export const getUserError = ({ user }: RootState) => {
