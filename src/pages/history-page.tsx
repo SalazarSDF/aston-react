@@ -1,13 +1,19 @@
 import { useSelector } from "react-redux";
 
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
-import { getUserHistory } from "../features/users/userSlice";
+import { getUserHistory, getUserData } from "../features/users/userSlice";
 
 import "./history-page.css";
 
 export default function History() {
   const userHistoryList = useSelector(getUserHistory);
+  const user = useSelector(getUserData);
+
+  if (!user || !user.email) {
+    return <Navigate to="/sign-up" />;
+  }
+
   if (!userHistoryList || userHistoryList.length === 0) {
     return <h1>No History! =(</h1>;
   }

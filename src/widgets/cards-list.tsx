@@ -1,7 +1,8 @@
 import "./cards-list.css";
+import { useSearchParams } from "react-router-dom";
 
 import Card from "../entities/card";
-import { useGetInitialRecipesQuery } from "../app/apiSlice";
+import { useSearchRecipesQuery } from "../app/apiSlice";
 import Spinner from "../entities/spinner";
 
 export type Recipe = {
@@ -16,13 +17,15 @@ export type Recipe = {
   image: string;
 };
 export default function CardsList() {
+  const [searchParams] = useSearchParams();
+  const currentSearchParams = searchParams.get("query") || "";
   const {
     data: recipesObj,
     isLoading,
     isFetching,
     isSuccess,
     isError,
-  } = useGetInitialRecipesQuery();
+  } = useSearchRecipesQuery(currentSearchParams);
 
   let content;
   if (isLoading || isFetching) {
@@ -32,10 +35,7 @@ export default function CardsList() {
     content = (
       <>
         {recipes.map((recipe) => (
-          <Card
-            key={recipe.id}
-            recipe={recipe}
-          />
+          <Card key={recipe.id} recipe={recipe} />
         ))}
       </>
     );
