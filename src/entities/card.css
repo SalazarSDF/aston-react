@@ -5,6 +5,11 @@
   gap: 1rem;
   padding: 0.5rem;
   border: 1px solid white;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.card-recipe:hover {
+  background: #ffffff24;
 }
 
 .card-recipe__tags {
@@ -22,3 +27,14 @@
 .card-recipe__instruction {
   border-bottom: 1px solid white;
 }
+
+.active_fav {
+  background: #50a33e;
+  border-color: yellow;
+}
+
+.card-recipe__button:hover {
+  cursor: pointer;
+  scale: 1.05;
+}
+

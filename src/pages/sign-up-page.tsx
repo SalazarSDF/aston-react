@@ -16,6 +16,13 @@ export type FormFieldsType = {
   confirmPassword: string;
 };
 
+function isPasswordsEqual(_: string, formValues: FormFieldsType) {
+  return (
+    formValues.password === formValues.confirmPassword ||
+    "passwords should be equal!"
+  );
+}
+
 export default function SignUpForm() {
   const {
     register,
@@ -28,13 +35,6 @@ export default function SignUpForm() {
   function onSubmit(data: FormFieldsType) {
     void dispatch(createNewUserWithEmailAndPassword(data));
     reset();
-  }
-
-  function isPasswordsEqual(_: string, formValues: FormFieldsType) {
-    return (
-      formValues.password === formValues.confirmPassword ||
-      "passwords should be equal!"
-    );
   }
 
   const signUpError = useSelector(getUserError);
@@ -103,8 +103,6 @@ export default function SignUpForm() {
         )}
         <input type="submit" />
       </form>
-      {/* TODO: Remove it's for test */}
-      {/* <button onClick={() => console.log(user, signUpError)}>UserData</button> */}
       {signUpError && <Modal />}
     </div>
   );

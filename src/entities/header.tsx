@@ -26,7 +26,7 @@ export default function Header() {
             <>
               <Link to="/favorites">Favorites</Link>
               <Link to="/history">History</Link>
-              <Link onClick={signOut} to="/">
+              <Link onClick={signOut} to="/sign-in">
                 Sign Out
               </Link>
             </>

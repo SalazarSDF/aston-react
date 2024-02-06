@@ -19,8 +19,11 @@ export const apiSlice = createApi({
     searchRecipes: builder.query<RecipesData, string>({
       query: (query: string) => `recipes/search?q=${query}`,
     }),
+    getRecipe: builder.query<Recipe, string>({
+      query: (recipeId: string) => `recipes/${recipeId}`,
+    }),
   }),
 });
 
 // Export the auto-generated hook for the `getPosts` query endpoint
-export const { useGetInitialRecipesQuery, useSearchRecipesQuery } = apiSlice;
+export const { useGetInitialRecipesQuery, useSearchRecipesQuery, useGetRecipeQuery } = apiSlice;

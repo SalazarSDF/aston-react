@@ -7,6 +7,10 @@ import {
   getUserFromBd,
   addUserToBd,
   signOutUser,
+  addUserNewFavoriteToBd,
+  removeUserFavoriteFromBd,
+  addUserHistoryToBd,
+  removeUserHistoryFromBd,
 } from "../../app/firebase";
 
 import type { FormFieldsType } from "../../pages/sign-up-page";
@@ -117,6 +121,39 @@ const userSlice = createSlice({
     ) {
       state.error = action.payload.newError;
     },
+
+    favoritePostHandler(state, action: PayloadAction<{ favoriteId: number }>) {
+      const { favoriteId } = action.payload;
+      const favorites = state.userData?.favorites;
+      if (favorites && state.userData) {
+        const isRecipeInFavorites = favorites.includes(favoriteId);
+        if (isRecipeInFavorites) {
+          state.userData.favorites = favorites.filter(
+            (el) => el !== favoriteId,
+          );
+          void removeUserFavoriteFromBd(state.userData.email, favoriteId);
+        } else if (!isRecipeInFavorites) {
+          favorites.push(favoriteId);
+          void addUserNewFavoriteToBd(state.userData.email, favoriteId);
+        }
+      }
+    },
+    historyPostHandler(
+      state,
+      action: PayloadAction<{ historyItem: string; typeOfAction: string }>,
+    ) {
+      const { historyItem, typeOfAction } = action.payload;
+      const history = state.userData?.history;
+      if (history && state.userData) {
+        if (typeOfAction === "remove") {
+          state.userData.history = history.filter((el) => el !== historyItem);
+          void removeUserHistoryFromBd(state.userData.email, historyItem);
+        } else if (typeOfAction === "add") {
+          history.push(historyItem);
+          void addUserHistoryToBd(state.userData.email, historyItem);
+        }
+      }
+    },
   },
 
   extraReducers: (builder) => {
@@ -154,12 +191,29 @@ const userSlice = createSlice({
 
 export default userSlice;
 
-export const { setUserData, setUserError } = userSlice.actions;
+export const {
+  setUserData,
+  setUserError,
+  favoritePostHandler,
+  historyPostHandler,
+} = userSlice.actions;
 
 export const getUserData = ({ user }: RootState) => {
-  //TODO: remove it's for testing
-  //console.log(user.userData);
   return user.userData;
+};
+
+export const getUserFavorites = ({ user }: RootState) => {
+  if (user?.userData?.favorites) {
+    return user.userData.favorites;
+  }
+  return null;
+};
+
+export const getUserHistory = ({ user }: RootState) => {
+  if (user?.userData?.history) {
+    return user.userData.history;
+  }
+  return null;
 };
 
 export const getUserError = ({ user }: RootState) => {
