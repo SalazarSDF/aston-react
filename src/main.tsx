@@ -7,6 +7,7 @@ import App from "./app/index";
 import { store } from "./app/store";
 import { getCurrentUser, getUserFromBd } from "./app/firebase";
 import { setUserData } from "./features/users/userSlice";
+import { ThemeContextProvider } from "./app/theme-context";
 
 async function start() {
   const user = await getCurrentUser();
@@ -18,7 +19,9 @@ async function start() {
     <React.StrictMode>
       <BrowserRouter>
         <Provider store={store}>
-          <App />
+          <ThemeContextProvider>
+            <App />
+          </ThemeContextProvider>
         </Provider>
       </BrowserRouter>
     </React.StrictMode>,

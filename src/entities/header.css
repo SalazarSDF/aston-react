@@ -7,6 +7,14 @@
   justify-content: space-between;
 }
 
+.header__light {
+  background: white;
+}
+
+.header__dark {
+  background: black;
+}
+
 .header__navigation {
   width: 50%;
   height: 100%;
@@ -17,4 +25,3 @@
   align-items: center;
   justify-content: flex-end;
 }
-
