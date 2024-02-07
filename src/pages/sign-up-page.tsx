@@ -42,8 +42,13 @@ export default function SignUpForm() {
     <div className="sign-up-form__container">
       <h2 className="sign-up-form__heading">Don&apos;t have an account?</h2>
       <span>Sign up with your email and password</span>
-      {/* I don't know how to fix this error*/}
-      <form className="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="sign-up-form"
+        onSubmit={(event) => {
+          const theReturnedFunction = handleSubmit(onSubmit);
+          void theReturnedFunction(event);
+        }}
+      >
         <label>
           <input
             type="text"

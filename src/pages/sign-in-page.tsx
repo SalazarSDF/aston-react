@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 
 import { useSelector } from "react-redux";
 
+import { useNavigate } from "react-router-dom";
+
 import { useAppDispatch } from "../app/store";
 import {
   changeUserWithEmail,
@@ -26,6 +28,8 @@ export default function SignIn() {
   } = useForm<FormFieldsType>();
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   function logInUserWithGoogle() {
     void dispatch(createNewUserWithGoogle());
   }
@@ -33,6 +37,7 @@ export default function SignIn() {
   function onSubmit(data: FormFieldsType) {
     void dispatch(changeUserWithEmail(data));
     reset();
+    navigate("/");
   }
 
   const signInError = useSelector(getUserError);
@@ -41,8 +46,13 @@ export default function SignIn() {
     <div className="sign-up-form__container">
       <h2 className="sign-up-form__heading">I already have an account</h2>
       <span>Sign in with your email and password</span>
-      {/* I don't know how to fix this*/}
-      <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="sign-in-form"
+        onSubmit={(event) => {
+          const theReturnedFunction = handleSubmit(onSubmit);
+          void theReturnedFunction(event);
+        }}
+      >
         <label>
           <input
             type="email"
