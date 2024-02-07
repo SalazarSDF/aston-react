@@ -1,7 +1,11 @@
+import PropTypes from "prop-types";
+
 import { useGetRecipeQuery } from "../app/apiSlice";
 
 import Spinner from "./spinner";
 import ImageWithLoader from "./image-with-loader";
+
+
 type PropsType = {
   recipeId: string;
 };
@@ -46,3 +50,17 @@ export default function FavoriteCard({ recipeId }: PropsType) {
 
   return <div>{content}</div>;
 }
+
+FavoriteCard.propTypes = {
+  recipe: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    prepTimeMinutes: PropTypes.number.isRequired,
+    cookTimeMinutes: PropTypes.number.isRequired,
+    difficulty: PropTypes.string.isRequired,
+    cuisine: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    image: PropTypes.string.isRequired,
+  }),
+};

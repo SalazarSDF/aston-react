@@ -13,8 +13,11 @@ export const apiSlice = createApi({
   tagTypes: ["Recipes"],
   // The "endpoints" represent operations and requests for this server
   endpoints: (builder) => ({
-    getInitialRecipes: builder.query<RecipesData, void>({
+    getInitialRecipes: builder.query<Recipe[], void>({
       query: () => `/recipes`,
+      transformResponse: (rawResult: { posts: Recipe[] }) => {
+        return rawResult.posts;
+      },
     }),
     searchRecipes: builder.query<RecipesData, string>({
       query: (query: string) => `recipes/search?q=${query}`,
@@ -26,4 +29,8 @@ export const apiSlice = createApi({
 });
 
 // Export the auto-generated hook for the `getPosts` query endpoint
-export const { useGetInitialRecipesQuery, useSearchRecipesQuery, useGetRecipeQuery } = apiSlice;
+export const {
+  useGetInitialRecipesQuery,
+  useSearchRecipesQuery,
+  useGetRecipeQuery,
+} = apiSlice;

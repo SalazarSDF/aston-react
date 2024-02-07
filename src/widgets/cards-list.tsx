@@ -32,16 +32,18 @@ export default function CardsList() {
     content = <Spinner />;
   } else if (isSuccess) {
     const recipes = recipesObj.recipes;
-    content = (
-      <>
-        {recipes.map((recipe) => (
-          <Card key={recipe.id} recipe={recipe} />
-        ))}
-      </>
-    );
+    content =
+      recipes.length > 0 ? (
+        <>
+          {recipes.map((recipe) => (
+            <Card key={recipe.id} recipe={recipe} />
+          ))}
+        </>
+      ) : (
+        <p>Nothing found =(</p>
+      );
   } else if (isError) {
     content = <div>Error! =( </div>;
   }
-
   return <div className="cards-list">{content}</div>;
 }

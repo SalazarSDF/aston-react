@@ -10,7 +10,7 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
@@ -24,7 +24,17 @@ module.exports = {
   rules: {
     "react-refresh/only-export-components": [
       "warn",
-      { allowConstantExport: true },
+      {
+        allowConstantExport: true,
+        allowExportNames: [
+          "meta",
+          "links",
+          "headers",
+          "loader",
+          "action",
+          "useThemeContext",
+        ],
+      },
     ],
     "no-console": ["error"],
     curly: ["error", "all"],

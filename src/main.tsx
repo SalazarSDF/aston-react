@@ -2,11 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
+
+import Fallback from "./shared/fallback";
 
 import App from "./app/index";
 import { store } from "./app/store";
 import { getCurrentUser, getUserFromBd } from "./app/firebase";
 import { setUserData } from "./features/users/userSlice";
+import { ThemeContextProvider } from "./app/theme-context";
 
 async function start() {
   const user = await getCurrentUser();
@@ -18,7 +22,11 @@ async function start() {
     <React.StrictMode>
       <BrowserRouter>
         <Provider store={store}>
-          <App />
+          <ErrorBoundary FallbackComponent={Fallback}>
+            <ThemeContextProvider>
+              <App />
+            </ThemeContextProvider>
+          </ErrorBoundary>
         </Provider>
       </BrowserRouter>
     </React.StrictMode>,
