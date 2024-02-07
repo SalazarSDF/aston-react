@@ -218,3 +218,5 @@ export const getUserHistory = ({ user }: RootState) => {
 export const getUserError = ({ user }: RootState) => {
   return user.error;
 };
+
+export const userReducer = userSlice.reducer
