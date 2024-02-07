@@ -13,6 +13,8 @@ import {
   removeUserHistoryFromBd,
 } from "../../app/firebase";
 
+import getErrorMessage from "../../shared/get-error-message";
+
 import type { FormFieldsType } from "../../pages/sign-up-page";
 
 import type { RootState } from "../../app/store";
@@ -37,11 +39,9 @@ export const createNewUserWithEmailAndPassword = createAsyncThunk(
       }
       const userFromBd = await getUserFromBd(data.email);
       return userFromBd;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      // я не нашел все типы ошибок from firebase, оставлю пока что так.
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      return rejectWithValue(error.code);
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      return rejectWithValue(errorMessage);
     }
   },
 );
@@ -59,7 +59,8 @@ export const createNewUserWithGoogle = createAsyncThunk(
       }
       return userFromBd;
     } catch (error) {
-      throw new Error("Error When set new user!");
+      const errorMessage = getErrorMessage(error);
+      throw new Error(errorMessage);
     }
   },
 );
@@ -76,11 +77,9 @@ export const changeUserWithEmail = createAsyncThunk(
       await signInAuthUserWithEmailAndPassword(data.email, data.password);
       const userFromBd = await getUserFromBd(data.email);
       return userFromBd;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      // я не нашел все типы ошибок from firebase, оставлю пока что так.
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      return rejectWithValue(error.code);
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      return rejectWithValue(errorMessage);
     }
   },
 );
@@ -164,8 +163,8 @@ const userSlice = createSlice({
         }
       })
       .addCase(createNewUserWithEmailAndPassword.rejected, (state, action) => {
-        // я не нашел все типы ошибок from firebase, оставлю пока что так.
-        state.error = action.payload as string;
+        const errorMessage = getErrorMessage(action.payload);
+        state.error = errorMessage;
       })
       .addCase(createNewUserWithGoogle.fulfilled, (state, action) => {
         if (action.payload) {
@@ -179,8 +178,8 @@ const userSlice = createSlice({
       })
       .addCase(changeUserWithEmail.rejected, (state, action) => {
         if (action.payload) {
-          // я не нашел все типы ошибок from firebase, оставлю пока что так.
-          state.error = action.payload as string;
+          const errorMessage = getErrorMessage(action.payload);
+          state.error = errorMessage;
         }
       })
       .addCase(removeUser.fulfilled, (state) => {

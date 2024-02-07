@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
+
+import Fallback from "./shared/fallback";
 
 import App from "./app/index";
 import { store } from "./app/store";
@@ -19,9 +22,11 @@ async function start() {
     <React.StrictMode>
       <BrowserRouter>
         <Provider store={store}>
-          <ThemeContextProvider>
-            <App />
-          </ThemeContextProvider>
+          <ErrorBoundary FallbackComponent={Fallback}>
+            <ThemeContextProvider>
+              <App />
+            </ThemeContextProvider>
+          </ErrorBoundary>
         </Provider>
       </BrowserRouter>
     </React.StrictMode>,
