@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import PropTypes from "prop-types";
+
 import "./card.css";
 import {
   getUserData,
@@ -72,3 +74,17 @@ export default function Card({ recipe }: PropsType) {
     </div>
   );
 }
+
+Card.propTypes = {
+  recipe: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    prepTimeMinutes: PropTypes.number.isRequired,
+    cookTimeMinutes: PropTypes.number.isRequired,
+    difficulty: PropTypes.string.isRequired,
+    cuisine: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    image: PropTypes.string.isRequired,
+  }),
+};

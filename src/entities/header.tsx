@@ -21,7 +21,6 @@ export default function Header() {
   }
 
   function changeTheme() {
-    console.log("changeTheme", theme);
     if (theme === "light") {
       setTheme("dark");
       return;
