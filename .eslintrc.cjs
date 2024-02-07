@@ -24,15 +24,15 @@ module.exports = {
   rules: {
     "react-refresh/only-export-components": [
       "warn",
-      { allowConstantExport: true },
       {
+        allowConstantExport: true,
         allowExportNames: [
           "meta",
           "links",
           "headers",
           "loader",
           "action",
-          "useThemeContext ",
+          "useThemeContext",
         ],
       },
     ],
