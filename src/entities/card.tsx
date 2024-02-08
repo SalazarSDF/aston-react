@@ -15,6 +15,8 @@ import { useAppDispatch } from "../app/store";
 
 import ImageWithLoader from "./image-with-loader";
 
+import FavoriteButton from "./button-favorites";
+
 import type { Recipe } from "../widgets/cards-list";
 type PropsType = {
   recipe: Recipe;
@@ -62,15 +64,10 @@ export default function Card({ recipe }: PropsType) {
       </ol>
       <p>Difficulty: {recipe.difficulty}</p>
       <p>Cuisine: {recipe.cuisine}</p>
-      <button
-        className={`card-recipe__button ${cardFavorite ? "active_fav" : ""}`}
-        onClick={(e) => handleToggleFavorite(e)}
-      >
-        <span role="img" aria-label="in fav">
-          ⭐
-        </span>
-        {cardFavorite === true ? "Remove from favorites" : "Add in favorites"}
-      </button>
+      <FavoriteButton
+        toggle={handleToggleFavorite}
+        isCardFavorite={cardFavorite}
+      />
     </div>
   );
 }

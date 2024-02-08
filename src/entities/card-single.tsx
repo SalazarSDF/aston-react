@@ -17,8 +17,11 @@ import ImageWithLoader from "./image-with-loader";
 
 import Spinner from "./spinner";
 
+import FavoriteButton from "./button-favorites";
+
 import "./card-single.css";
 import "./card.css";
+
 type RouterParams = {
   recipeId: string;
 };
@@ -76,15 +79,10 @@ export default function SingleCard() {
         </ol>
         <p>Difficulty: {recipe.difficulty}</p>
         <p>Cuisine: {recipe.cuisine}</p>
-        <button
-          className={`card-recipe__button ${cardFavorite ? "active_fav" : ""}`}
-          onClick={(e) => handleToggleFavorite(e)}
-        >
-          <span role="img" aria-label="in fav">
-            ⭐
-          </span>
-          {cardFavorite === true ? "Remove from favorites" : "Add in favorites"}
-        </button>
+        <FavoriteButton
+          toggle={handleToggleFavorite}
+          isCardFavorite={cardFavorite}
+        />
       </div>
     );
   } else if (isError) {

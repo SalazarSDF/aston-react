@@ -1,13 +1,18 @@
-export default function FavoritesButton() {
+type PropsType = {
+  isCardFavorite: boolean | null;
+  toggle: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+};
+
+export default function FavoriteButton({ toggle, isCardFavorite }: PropsType) {
   return (
     <button
-      className={`card-recipe__button ${cardFavorite ? "active_fav" : ""}`}
-      onClick={(e) => handleToggleFavorite(e)}
+      className={`card-recipe__button ${isCardFavorite ? "active_fav" : ""}`}
+      onClick={(e) => toggle(e)}
     >
       <span role="img" aria-label="in fav">
         ⭐
       </span>
-      {cardFavorite === true ? "Remove from favorites" : "Add in favorites"}
+      {isCardFavorite ? "Remove from favorites" : "Add in favorites"}
     </button>
   );
 }
