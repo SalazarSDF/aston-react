@@ -22,15 +22,12 @@ export default function SearchBar() {
 
   function handleSearchValue(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(event.target.value);
-    if (event.target.value) {
-      searchParams.set("query", event.target.value);
-      setSearchParams(searchParams);
-      return;
-    }
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    searchParams.set("query", searchValue);
+    setSearchParams(searchParams);
     dispatch(
       historyPostHandler({ historyItem: searchValue, typeOfAction: "add" }),
     );
