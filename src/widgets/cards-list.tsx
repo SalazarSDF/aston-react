@@ -16,9 +16,11 @@ export type Recipe = {
   tags: string[];
   image: string;
 };
-export default function CardsList() {
-  const [searchParams] = useSearchParams();
-  const currentSearchParams = searchParams.get("query") || "";
+
+type PropsType = {
+  currentSearchParams: string;
+};
+export default function CardsList({ currentSearchParams }: PropsType) {
   const {
     data: recipesObj,
     isLoading,

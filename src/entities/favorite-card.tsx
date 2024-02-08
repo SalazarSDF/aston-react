@@ -5,6 +5,7 @@ import { useGetRecipeQuery } from "../app/apiSlice";
 import Spinner from "./spinner";
 import ImageWithLoader from "./image-with-loader";
 
+import "./card.css";
 
 type PropsType = {
   recipeId: string;

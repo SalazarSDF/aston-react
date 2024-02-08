@@ -1,7 +1,7 @@
 import "./suggestions-list.css";
 import { useSearchRecipesQuery } from "../app/apiSlice";
 import Spinner from "../entities/spinner";
-import ImageWithLoader from "../entities/image-with-loader";
+import SuggestionCard from "../entities/card-suggestion";
 
 type Props = {
   searchValue: string;
@@ -37,12 +37,7 @@ export default function SuggestionsList({ searchValue, isBlurOrFocus }: Props) {
     );
   } else if (isSuccess) {
     content = recipesObj.recipes.map((recipe) => (
-      <div key={recipe.id} className="suggestion-item">
-        <div className="suggestion-item__img">
-          <ImageWithLoader src={recipe.image} alt={recipe.name} />
-        </div>
-        <span>{recipe.name}</span>
-      </div>
+      <SuggestionCard key={recipe.id} recipe={recipe} />
     ));
   }
 

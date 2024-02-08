@@ -18,6 +18,7 @@ import ImageWithLoader from "./image-with-loader";
 import Spinner from "./spinner";
 
 import "./card-single.css";
+import "./card.css";
 type RouterParams = {
   recipeId: string;
 };

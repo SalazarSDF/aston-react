@@ -17,7 +17,8 @@ export default function SearchBar() {
   const debouncedSearchValue = useDebounce(searchValue, 500);
   const dispatch = useAppDispatch();
 
-  const [isBlurOrFocus, setIsBlurOrFocus] = useState<string | null>(null);
+  const [isBlurOrFocus, setIsBlurOrFocus] = useState<string>("blur");
+  const debounceIsBlurOrFocus = useDebounce(isBlurOrFocus, 300);
 
   function handleSearchValue(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(event.target.value);
@@ -64,7 +65,7 @@ export default function SearchBar() {
       {debouncedSearchValue.length > 2 && (
         <SuggestionsList
           searchValue={debouncedSearchValue}
-          isBlurOrFocus={isBlurOrFocus}
+          isBlurOrFocus={debounceIsBlurOrFocus}
         />
       )}
     </>

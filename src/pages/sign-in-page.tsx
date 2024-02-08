@@ -13,6 +13,7 @@ import {
 import Modal from "../widgets/modal";
 
 import "./sign-in-page.css";
+import "./sign-up-page.css";
 
 export type FormFieldsType = {
   email: string;
