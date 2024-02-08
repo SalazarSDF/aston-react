@@ -1,5 +1,4 @@
 import "./cards-list.css";
-import { useSearchParams } from "react-router-dom";
 
 import Card from "../entities/card";
 import { useSearchRecipesQuery } from "../app/apiSlice";
