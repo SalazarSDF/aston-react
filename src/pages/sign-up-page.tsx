@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
+import { useNavigate } from "react-router-dom";
+
 import { useAppDispatch } from "../app/store";
 
 import {
@@ -32,9 +34,13 @@ export default function SignUpForm() {
   } = useForm<FormFieldsType>();
 
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
   function onSubmit(data: FormFieldsType) {
     void dispatch(createNewUserWithEmailAndPassword(data));
     reset();
+    navigate("/");
   }
 
   const signUpError = useSelector(getUserError);
