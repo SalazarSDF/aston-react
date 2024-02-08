@@ -6,6 +6,7 @@ import FavoritesList from "../widgets/favorites-list";
 
 import { getUserData } from "../features/users/userSlice";
 
+import "../widgets/cards-list.css";
 
 export default function Favorites() {
   const user = useSelector(getUserData);
